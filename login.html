@@ -282,6 +282,21 @@
                     <p id="specialRequirement">
                         ✗ Contains a special character
                     </p>
+                    <!-- Confirm Password -->
+
+<div class="form-group">
+
+    <label for="confirmPassword">
+        Confirm Password
+    </label>
+
+    <input
+        type="password"
+        id="confirmPassword"
+        placeholder="Re-enter your password"
+    >
+
+</div>
 
                 </div>
 
@@ -372,6 +387,8 @@
 
         const passwordInput =
             document.getElementById("password");
+        const confirmPasswordInput =
+            document.getElementById("confirmPassword");
 
         const showPasswordButton =
             document.getElementById("showPassword");
@@ -646,6 +663,21 @@
                     return;
 
                 }
+                // Confirm password validation
+
+const confirmPassword =
+    confirmPasswordInput.value;
+
+if (confirmPassword !== password) {
+
+    errorMessage.textContent =
+        "Passwords do not match.";
+
+    errorMessage.style.display =
+        "block";
+
+    return;
+}
 
 
                 // Successful login
