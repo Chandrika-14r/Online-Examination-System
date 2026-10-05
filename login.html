@@ -246,7 +246,7 @@
                 <div class="password-requirements">
 
                     <p id="lengthRequirement">
-                        ✗ At least 8 characters
+                        ✗ At least 10 characters
                     </p>
 
                     <p id="numberRequirement">
@@ -369,17 +369,17 @@
             const password = passwordInput.value;
 
             // Check length
-            if (password.length >= 8) {
+            if (password.length >= 10) {
 
                 lengthRequirement.textContent =
-                    "✓ At least 8 characters";
+                    "✓ At least 10 characters";
 
                 lengthRequirement.className = "valid";
 
             } else {
 
                 lengthRequirement.textContent =
-                    "✗ At least 8 characters";
+                    "✗ At least 10 characters";
 
                 lengthRequirement.className = "invalid";
 
