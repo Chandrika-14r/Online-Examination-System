@@ -465,10 +465,10 @@
 
                 // Check length
 
-                if (password.length >= 8) {
+                if (password.length >= 12) {
 
                     lengthRequirement.textContent =
-                        "✓ At least 8 characters";
+                        "✓ At least 12 characters";
 
                     lengthRequirement.className =
                         "valid";
@@ -476,7 +476,7 @@
                 } else {
 
                     lengthRequirement.textContent =
-                        "✗ At least 8 characters";
+                        "✗ At least 12 characters";
 
                     lengthRequirement.className =
                         "invalid";
@@ -607,10 +607,10 @@
 
                 // Password length validation
 
-                if (password.length < 8) {
+                if (password.length < 12) {
 
                     errorMessage.textContent =
-                        "Password must contain at least 8 characters.";
+                        "Password must contain at least 12 characters.";
 
                     errorMessage.style.display =
                         "block";
