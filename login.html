@@ -1,36 +1,537 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Online Examination System</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f2f4f7;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 420px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            font-size: 25px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #333;
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .password-container input {
+            padding-right: 80px;
+        }
+
+        .show-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .password-requirements {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .password-requirements p {
+            margin: 3px 0;
+        }
+
+        .valid {
+            color: green;
+        }
+
+        .invalid {
+            color: red;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            font-size: 13px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .forgot-password {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background-color: #333;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .login-button:hover {
+            background-color: #555;
+        }
+
+        .message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .error-message {
+            background-color: #ffe5e5;
+            color: #c00000;
+        }
+
+        .success-message {
+            background-color: #e5ffe9;
+            color: green;
+        }
+
+        .exam-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .exam-section h2 {
+            margin-bottom: 8px;
+        }
+
+        .exam-section p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .exam-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            background-color: #444;
+            color: white;
+            cursor: pointer;
+        }
+
+        .exam-button:hover {
+            background-color: #666;
+        }
+    </style>
 </head>
+
 <body>
 
-    <h1>Online Examination System - Student Portal</h1>
+    <div class="container">
 
-    <h2>Login Module</h2>
+        <div class="header">
+            <h1>Online Examination System</h1>
+            <p>Student Login Portal</p>
+        </div>
 
-    <form>
-        <label>Username:</label>
-        <input type="text" placeholder="Enter username">
+        <form id="loginForm">
 
-        <br><br>
+            <!-- Username -->
+            <div class="form-group">
+                <label for="username">Username / Email</label>
 
-        <label>Password:</label>
-        <input type="password" placeholder="Enter password">
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Enter username or email"
+                >
+            </div>
 
-        <br><br>
+            <!-- Password -->
+            <div class="form-group">
 
-        <button type="submit">Login</button>
-        <br> <br>
-        <a href="#" >Forgot Password?</a>
-        <br><br>
-        <label> <input type="checkbox">Remember Me</label>
-    </form>
-    <h2>Exam Module</h2>
+                <label for="password">Password</label>
 
-<p>Welcome to the Online Examination Portal.</p>
+                <div class="password-container">
 
-<button>Start Exam</button>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter password"
+                    >
+
+                    <button
+                        type="button"
+                        class="show-password"
+                        id="showPassword"
+                    >
+                        Show
+                    </button>
+
+                </div>
+
+                <!-- Password requirements -->
+                <div class="password-requirements">
+
+                    <p id="lengthRequirement">
+                        ✗ At least 8 characters
+                    </p>
+
+                    <p id="numberRequirement">
+                        ✗ Contains a number
+                    </p>
+
+                    <p id="uppercaseRequirement">
+                        ✗ Contains an uppercase letter
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- Remember me and forgot password -->
+            <div class="options">
+
+                <label class="remember-me">
+                    <input type="checkbox" id="rememberMe">
+                    Remember Me
+                </label>
+
+                <a href="#" class="forgot-password" id="forgotPassword">
+                    Forgot Password?
+                </a>
+
+            </div>
+
+            <!-- Login button -->
+            <button type="submit" class="login-button">
+                Login
+            </button>
+
+            <!-- Messages -->
+            <div
+                id="errorMessage"
+                class="message error-message"
+            ></div>
+
+            <div
+                id="successMessage"
+                class="message success-message"
+            ></div>
+
+        </form>
+
+        <!-- Exam Module -->
+        <div class="exam-section">
+
+            <h2>Exam Module</h2>
+
+            <p>
+                Login to access your scheduled online examinations.
+            </p>
+
+            <button
+                class="exam-button"
+                type="button"
+                onclick="showExamMessage()"
+            >
+                Start Exam
+            </button>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        // Get HTML elements
+        const passwordInput =
+            document.getElementById("password");
+
+        const showPasswordButton =
+            document.getElementById("showPassword");
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+        const usernameInput =
+            document.getElementById("username");
+
+        const errorMessage =
+            document.getElementById("errorMessage");
+
+        const successMessage =
+            document.getElementById("successMessage");
+
+        const lengthRequirement =
+            document.getElementById("lengthRequirement");
+
+        const numberRequirement =
+            document.getElementById("numberRequirement");
+
+        const uppercaseRequirement =
+            document.getElementById("uppercaseRequirement");
+
+
+        // Show / Hide password
+        showPasswordButton.addEventListener("click", function () {
+
+            if (passwordInput.type === "password") {
+
+                passwordInput.type = "text";
+                showPasswordButton.textContent = "Hide";
+
+            } else {
+
+                passwordInput.type = "password";
+                showPasswordButton.textContent = "Show";
+
+            }
+
+        });
+
+
+        // Password validation
+        passwordInput.addEventListener("input", function () {
+
+            const password = passwordInput.value;
+
+            // Check length
+            if (password.length >= 8) {
+
+                lengthRequirement.textContent =
+                    "✓ At least 8 characters";
+
+                lengthRequirement.className = "valid";
+
+            } else {
+
+                lengthRequirement.textContent =
+                    "✗ At least 8 characters";
+
+                lengthRequirement.className = "invalid";
+
+            }
+
+
+            // Check number
+            if (/\d/.test(password)) {
+
+                numberRequirement.textContent =
+                    "✓ Contains a number";
+
+                numberRequirement.className = "valid";
+
+            } else {
+
+                numberRequirement.textContent =
+                    "✗ Contains a number";
+
+                numberRequirement.className = "invalid";
+
+            }
+
+
+            // Check uppercase letter
+            if (/[A-Z]/.test(password)) {
+
+                uppercaseRequirement.textContent =
+                    "✓ Contains an uppercase letter";
+
+                uppercaseRequirement.className = "valid";
+
+            } else {
+
+                uppercaseRequirement.textContent =
+                    "✗ Contains an uppercase letter";
+
+                uppercaseRequirement.className = "invalid";
+
+            }
+
+        });
+
+
+        // Login validation
+        loginForm.addEventListener("submit", function (event) {
+
+            event.preventDefault();
+
+            const username =
+                usernameInput.value.trim();
+
+            const password =
+                passwordInput.value;
+
+            errorMessage.style.display = "none";
+            successMessage.style.display = "none";
+
+
+            // Check username
+            if (username === "") {
+
+                errorMessage.textContent =
+                    "Please enter your username or email.";
+
+                errorMessage.style.display = "block";
+
+                return;
+            }
+
+
+            // Check password
+            if (password === "") {
+
+                errorMessage.textContent =
+                    "Please enter your password.";
+
+                errorMessage.style.display = "block";
+
+                return;
+            }
+
+
+            // Password length
+            if (password.length < 8) {
+
+                errorMessage.textContent =
+                    "Password must contain at least 8 characters.";
+
+                errorMessage.style.display = "block";
+
+                return;
+            }
+
+
+            // Number validation
+            if (!/\d/.test(password)) {
+
+                errorMessage.textContent =
+                    "Password must contain at least one number.";
+
+                errorMessage.style.display = "block";
+
+                return;
+            }
+
+
+            // Uppercase validation
+            if (!/[A-Z]/.test(password)) {
+
+                errorMessage.textContent =
+                    "Password must contain at least one uppercase letter.";
+
+                errorMessage.style.display = "block";
+
+                return;
+            }
+
+
+            // Successful login
+            successMessage.textContent =
+                "Login successful. Welcome to the examination portal!";
+
+            successMessage.style.display = "block";
+
+        });
+
+
+        // Forgot password
+        document
+            .getElementById("forgotPassword")
+            .addEventListener("click", function (event) {
+
+                event.preventDefault();
+
+                alert(
+                    "Password reset instructions will be sent to your registered email."
+                );
+
+            });
+
+
+        // Start exam
+        function showExamMessage() {
+
+            alert(
+                "Please login first to start the examination."
+            );
+
+        }
+
+    </script>
 
 </body>
 </html>
