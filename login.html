@@ -440,17 +440,48 @@
 
 
             // Check username
-            if (username === "") {
 
-                errorMessage.textContent =
-                    "Please enter your username or email.";
+        // Check username or email
+if (username === "") {
 
-                errorMessage.style.display = "block";
+    errorMessage.textContent =
+        "Please enter your username or email.";
 
-                return;
-            }
+    errorMessage.style.display = "block";
+
+    return;
+}
 
 
+// Validate email format
+if (username.includes("@")) {
+
+    const emailPattern =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(username)) {
+
+        errorMessage.textContent =
+            "Please enter a valid email address.";
+
+        errorMessage.style.display = "block";
+
+        return;
+    }
+
+} else {
+
+    // Validate username length
+    if (username.length < 4) {
+
+        errorMessage.textContent =
+            "Username must contain at least 4 characters.";
+
+        errorMessage.style.display = "block";
+
+        return;
+    }
+}   
             // Check password
             if (password === "") {
 
