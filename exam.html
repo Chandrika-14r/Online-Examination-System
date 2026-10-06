@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Examination</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .exam-container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .instructions {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .question {
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .question h3 {
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+
+        button {
+            display: block;
+            margin: 25px auto 10px;
+            padding: 12px 30px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #555;
+        }
+
+        #result {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .back-button {
+            background: #777;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="exam-container">
+
+        <h1>Online Examination</h1>
+
+        <p class="instructions">
+            Answer all questions and click Submit Exam to view your score.
+        </p>
+
+        <form id="examForm">
+
+            <!-- Question 1 -->
+            <div class="question">
+                <h3>1. What is Java?</h3>
+
+                <label>
+                    <input type="radio" name="q1" value="correct">
+                    A programming language
+                </label>
+
+                <label>
+                    <input type="radio" name="q1" value="wrong">
+                    A database
+                </label>
+
+                <label>
+                    <input type="radio" name="q1" value="wrong">
+                    An operating system
+                </label>
+
+                <label>
+                    <input type="radio" name="q1" value="wrong">
+                    A web browser
+                </label>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question">
+                <h3>2. Which keyword is used to create a class in Java?</h3>
+
+                <label>
+                    <input type="radio" name="q2" value="wrong">
+                    function
+                </label>
+
+                <label>
+                    <input type="radio" name="q2" value="correct">
+                    class
+                </label>
+
+                <label>
+                    <input type="radio" name="q2" value="wrong">
+                    define
+                </label>
+
+                <label>
+                    <input type="radio" name="q2" value="wrong">
+                    object
+                </label>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question">
+                <h3>3. Which symbol is used to end a statement in Java?</h3>
+
+                <label>
+                    <input type="radio" name="q3" value="wrong">
+                    :
+                </label>
+
+                <label>
+                    <input type="radio" name="q3" value="wrong">
+                    .
+                </label>
+
+                <label>
+                    <input type="radio" name="q3" value="correct">
+                    ;
+                </label>
+
+                <label>
+                    <input type="radio" name="q3" value="wrong">
+                    ,
+                </label>
+            </div>
+
+            <button type="button" onclick="submitExam()">
+                Submit Exam
+            </button>
+
+        </form>
+
+        <div id="result"></div>
+
+        <button class="back-button" onclick="window.location.href='index.html'">
+            Back to Login
+        </button>
+
+    </div>
+
+    <script>
+        function submitExam() {
+
+            let score = 0;
+
+            const answers = document.querySelectorAll(
+                'input[type="radio"]:checked'
+            );
+
+            answers.forEach(function(answer) {
+                if (answer.value === "correct") {
+                    score++;
+                }
+            });
+
+            document.getElementById("result").innerHTML =
+                "Your Score: " + score + " / 3";
+        }
+    </script>
+
+</body>
+</html>

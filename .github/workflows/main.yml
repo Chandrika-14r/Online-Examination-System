@@ -25,6 +25,7 @@ jobs:
         run: |
           mkdir -p dist
           cp index.html dist/index.html
+          cp exam.html dist/exam.html
 
       - name: Upload website artifact
         uses: actions/upload-pages-artifact@v3
@@ -44,8 +45,10 @@ jobs:
       - name: Test index.html
         run: |
           test -f index.html
+          test -f exam.html
           grep -q "Online Examination System" index.html
-          grep -q "Exam Module" index.html
+          grep -q "Online Examination" exam.html
+          grep -q "Submit Exam" exam.html
           echo "All tests passed successfully."
 
 
