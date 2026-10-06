@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Online Examination System</title>
 
     <style>
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -194,7 +198,9 @@
         .exam-button:hover {
             background-color: #666;
         }
+
     </style>
+
 </head>
 
 <body>
@@ -202,27 +208,41 @@
     <div class="container">
 
         <div class="header">
+
             <h1>Online Examination System</h1>
+
             <p>Student Login Portal</p>
+
         </div>
+
 
         <form id="loginForm">
 
+
             <!-- Username -->
+
             <div class="form-group">
-                <label for="username">Username / Email</label>
+
+                <label for="username">
+                    Username / Email
+                </label>
 
                 <input
                     type="text"
                     id="username"
                     placeholder="Enter username or email"
                 >
+
             </div>
 
+
             <!-- Password -->
+
             <div class="form-group">
 
-                <label for="password">Password</label>
+                <label for="password">
+                    Password
+                </label>
 
                 <div class="password-container">
 
@@ -242,7 +262,9 @@
 
                 </div>
 
+
                 <!-- Password requirements -->
+
                 <div class="password-requirements">
 
                     <p id="lengthRequirement">
@@ -257,34 +279,76 @@
                         ✗ Contains an uppercase letter
                     </p>
 
+                    <p id="specialRequirement">
+                        ✗ Contains a special character
+                    </p>
+                    <!-- Confirm Password -->
+
+<div class="form-group">
+
+    <label for="confirmPassword">
+        Confirm Password
+    </label>
+
+    <input
+        type="password"
+        id="confirmPassword"
+        placeholder="Re-enter your password"
+    >
+
+</div>
+
                 </div>
 
             </div>
 
-            <!-- Remember me and forgot password -->
+
+            <!-- Remember Me and Forgot Password -->
+
             <div class="options">
 
                 <label class="remember-me">
-                    <input type="checkbox" id="rememberMe">
+
+                    <input
+                        type="checkbox"
+                        id="rememberMe"
+                    >
+
                     Remember Me
+
                 </label>
 
-                <a href="#" class="forgot-password" id="forgotPassword">
+
+                <a
+                    href="#"
+                    class="forgot-password"
+                    id="forgotPassword"
+                >
                     Forgot Password?
                 </a>
 
             </div>
 
-            <!-- Login button -->
-            <button type="submit" class="login-button">
+
+            <!-- Login Button -->
+
+            <button
+                type="submit"
+                class="login-button"
+            >
                 Login
             </button>
 
-            <!-- Messages -->
+
+            <!-- Error Message -->
+
             <div
                 id="errorMessage"
                 class="message error-message"
             ></div>
+
+
+            <!-- Success Message -->
 
             <div
                 id="successMessage"
@@ -293,7 +357,9 @@
 
         </form>
 
+
         <!-- Exam Module -->
+
         <div class="exam-section">
 
             <h2>Exam Module</h2>
@@ -314,11 +380,15 @@
 
     </div>
 
+
     <script>
 
         // Get HTML elements
+
         const passwordInput =
             document.getElementById("password");
+        const confirmPasswordInput =
+            document.getElementById("confirmPassword");
 
         const showPasswordButton =
             document.getElementById("showPassword");
@@ -344,216 +414,303 @@
         const uppercaseRequirement =
             document.getElementById("uppercaseRequirement");
 
+        const specialRequirement =
+            document.getElementById("specialRequirement");
 
-        // Show / Hide password
-        showPasswordButton.addEventListener("click", function () {
 
-            if (passwordInput.type === "password") {
+        // ----------------------------------------
+        // SHOW / HIDE PASSWORD
+        // ----------------------------------------
 
-                passwordInput.type = "text";
-                showPasswordButton.textContent = "Hide";
+        showPasswordButton.addEventListener(
+            "click",
+            function () {
 
-            } else {
+                if (passwordInput.type === "password") {
 
-                passwordInput.type = "password";
-                showPasswordButton.textContent = "Show";
+                    passwordInput.type = "text";
+
+                    showPasswordButton.textContent = "Hide";
+
+                } else {
+
+                    passwordInput.type = "password";
+
+                    showPasswordButton.textContent = "Show";
+
+                }
 
             }
+        );
 
-        });
+
+        // ----------------------------------------
+        // PASSWORD STRENGTH VALIDATION
+        // ----------------------------------------
+
+        passwordInput.addEventListener(
+            "input",
+            function () {
+
+                const password =
+                    passwordInput.value;
 
 
-        // Password validation
-        passwordInput.addEventListener("input", function () {
+                // Clear previous messages
 
-            const password = passwordInput.value;
+                errorMessage.style.display = "none";
+
+                successMessage.style.display = "none";
+
 
             // Check length
-            if (password.length >= 10) {
+            if (password.length >= 8) {
 
                 lengthRequirement.textContent =
-                    "✓ At least 10 characters";
+                    "✓ At least 8 characters";
 
-                lengthRequirement.className = "valid";
+                    lengthRequirement.className =
+                        "valid";
 
-            } else {
+                } else {
 
                 lengthRequirement.textContent =
-                    "✗ At least 10 characters";
+                    "✗ At least 8 characters";
 
-                lengthRequirement.className = "invalid";
+                    lengthRequirement.className =
+                        "invalid";
+
+                }
+
+
+                // Check number
+
+                if (/\d/.test(password)) {
+
+                    numberRequirement.textContent =
+                        "✓ Contains a number";
+
+                    numberRequirement.className =
+                        "valid";
+
+                } else {
+
+                    numberRequirement.textContent =
+                        "✗ Contains a number";
+
+                    numberRequirement.className =
+                        "invalid";
+
+                }
+
+
+                // Check uppercase letter
+
+                if (/[A-Z]/.test(password)) {
+
+                    uppercaseRequirement.textContent =
+                        "✓ Contains an uppercase letter";
+
+                    uppercaseRequirement.className =
+                        "valid";
+
+                } else {
+
+                    uppercaseRequirement.textContent =
+                        "✗ Contains an uppercase letter";
+
+                    uppercaseRequirement.className =
+                        "invalid";
+
+                }
+
+
+                // Check special character
+
+                if (/[^A-Za-z0-9]/.test(password)) {
+
+                    specialRequirement.textContent =
+                        "✓ Contains a special character";
+
+                    specialRequirement.className =
+                        "valid";
+
+                } else {
+
+                    specialRequirement.textContent =
+                        "✗ Contains a special character";
+
+                    specialRequirement.className =
+                        "invalid";
+
+                }
 
             }
+        );
 
 
-            // Check number
-            if (/\d/.test(password)) {
+        // ----------------------------------------
+        // LOGIN VALIDATION
+        // ----------------------------------------
 
-                numberRequirement.textContent =
-                    "✓ Contains a number";
+        loginForm.addEventListener(
+            "submit",
+            function (event) {
 
-                numberRequirement.className = "valid";
-
-            } else {
-
-                numberRequirement.textContent =
-                    "✗ Contains a number";
-
-                numberRequirement.className = "invalid";
-
-            }
+                event.preventDefault();
 
 
-            // Check uppercase letter
-            if (/[A-Z]/.test(password)) {
+                const username =
+                    usernameInput.value.trim();
 
-                uppercaseRequirement.textContent =
-                    "✓ Contains an uppercase letter";
-
-                uppercaseRequirement.className = "valid";
-
-            } else {
-
-                uppercaseRequirement.textContent =
-                    "✗ Contains an uppercase letter";
-
-                uppercaseRequirement.className = "invalid";
-
-            }
-
-        });
+                const password =
+                    passwordInput.value;
 
 
-        // Login validation
-        loginForm.addEventListener("submit", function (event) {
+                // Hide previous messages
 
-            event.preventDefault();
+                errorMessage.style.display = "none";
 
-            const username =
-                usernameInput.value.trim();
-
-            const password =
-                passwordInput.value;
-
-            errorMessage.style.display = "none";
-            successMessage.style.display = "none";
+                successMessage.style.display = "none";
 
 
             // Check username
+            if (username === "") {
 
-        // Check username or email
-if (username === "") {
+                errorMessage.textContent =
+                    "Please enter your username or email.";
+
+                errorMessage.style.display = "block";
+
+                return;
+            }
+
+
+            // Check password
+            if (password === "") {
+
+                    errorMessage.textContent =
+                        "Please enter your password.";
+
+                    errorMessage.style.display =
+                        "block";
+
+                    return;
+
+                }
+
+
+                // Password length validation
+
+                if (password.length < 12) {
+
+                    errorMessage.textContent =
+                        "Password must contain at least 12 characters.";
+
+                    errorMessage.style.display =
+                        "block";
+
+                    return;
+
+                }
+
+
+                // Number validation
+
+                if (!/\d/.test(password)) {
+
+                    errorMessage.textContent =
+                        "Password must contain at least one number.";
+
+                    errorMessage.style.display =
+                        "block";
+
+                    return;
+
+                }
+
+
+                // Uppercase validation
+
+                if (!/[A-Z]/.test(password)) {
+
+                    errorMessage.textContent =
+                        "Password must contain at least one uppercase letter.";
+
+                    errorMessage.style.display =
+                        "block";
+
+                    return;
+
+                }
+
+
+                // Special character validation
+
+                if (!/[^A-Za-z0-9]/.test(password)) {
+
+                    errorMessage.textContent =
+                        "Password must contain at least one special character.";
+
+                    errorMessage.style.display =
+                        "block";
+
+                    return;
+
+                }
+                // Confirm password validation
+
+const confirmPassword =
+    confirmPasswordInput.value;
+
+if (confirmPassword !== password) {
 
     errorMessage.textContent =
-        "Please enter your username or email.";
+        "Passwords do not match.";
 
-    errorMessage.style.display = "block";
+    errorMessage.style.display =
+        "block";
 
     return;
 }
 
 
-// Validate email format
-if (username.includes("@")) {
+                // Successful login
 
-    const emailPattern =
-        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                successMessage.textContent =
+                    "Login successful. Welcome to the examination portal!";
 
-    if (!emailPattern.test(username)) {
+                successMessage.style.display =
+                    "block";
 
-        errorMessage.textContent =
-            "Please enter a valid email address.";
-
-        errorMessage.style.display = "block";
-
-        return;
-    }
-
-} else {
-
-    // Validate username length
-    if (username.length < 4) {
-
-        errorMessage.textContent =
-            "Username must contain at least 4 characters.";
-
-        errorMessage.style.display = "block";
-
-        return;
-    }
-}   
-            // Check password
-            if (password === "") {
-
-                errorMessage.textContent =
-                    "Please enter your password.";
-
-                errorMessage.style.display = "block";
-
-                return;
             }
+        );
 
 
-            // Password length
-            if (password.length < 8) {
+        // ----------------------------------------
+        // FORGOT PASSWORD
+        // ----------------------------------------
 
-                errorMessage.textContent =
-                    "Password must contain at least 8 characters.";
-
-                errorMessage.style.display = "block";
-
-                return;
-            }
-
-
-            // Number validation
-            if (!/\d/.test(password)) {
-
-                errorMessage.textContent =
-                    "Password must contain at least one number.";
-
-                errorMessage.style.display = "block";
-
-                return;
-            }
-
-
-            // Uppercase validation
-            if (!/[A-Z]/.test(password)) {
-
-                errorMessage.textContent =
-                    "Password must contain at least one uppercase letter.";
-
-                errorMessage.style.display = "block";
-
-                return;
-            }
-
-
-            // Successful login
-            successMessage.textContent =
-                "Login successful. Welcome to the examination portal!";
-
-            successMessage.style.display = "block";
-
-        });
-
-
-        // Forgot password
         document
             .getElementById("forgotPassword")
-            .addEventListener("click", function (event) {
+            .addEventListener(
+                "click",
+                function (event) {
 
-                event.preventDefault();
+                    event.preventDefault();
 
-                alert(
-                    "Password reset instructions will be sent to your registered email."
-                );
+                    alert(
+                        "Password reset instructions will be sent to your registered email."
+                    );
 
-            });
+                }
+            );
 
 
-        // Start exam
+        // ----------------------------------------
+        // START EXAM
+        // ----------------------------------------
+
         function showExamMessage() {
 
             alert(
@@ -565,4 +722,5 @@ if (username.includes("@")) {
     </script>
 
 </body>
+
 </html>
